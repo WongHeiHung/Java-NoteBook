@@ -7,9 +7,12 @@ public class Note implements Comparable<Note>{
     private Date date;
     private String title;
 
+    static long counter = 1L;
+
     public Note(String title){
         this.title = title;
-        this.date = new Date();
+        this.date = new Date(counter);
+        counter++;
     }
 
     public String getTitle() {
@@ -30,7 +33,7 @@ public class Note implements Comparable<Note>{
 
     @Override
     public int compareTo(Note o) {
-        return this.date.compareTo(o.date);
+        return o.date.compareTo(this.date);
     }
 
     @Override
