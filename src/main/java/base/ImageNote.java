@@ -10,4 +10,9 @@ public class ImageNote extends Note{
         super(title);
         this.image = null;
     }
+
+    @Override
+    public String toString() {
+        return "ImageNote: " + getDate().toString() + "\t" + getTitle();
+    }
 }

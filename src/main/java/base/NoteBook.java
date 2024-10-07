@@ -87,4 +87,12 @@ public class NoteBook {
         }
         return notes;
     }
+
+    public boolean createNote(String folderName, String title){
+        return this.createImageNote(folderName, title);
+    }
+
+    public boolean createNote(String folderName, String title, String content){
+        return this.createTextNote(folderName, title, content);
+    }
 }

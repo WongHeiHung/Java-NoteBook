@@ -19,6 +19,10 @@ public class Note implements Comparable<Note>{
         return title;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -33,7 +37,11 @@ public class Note implements Comparable<Note>{
 
     @Override
     public int compareTo(Note o) {
-        return o.date.compareTo(this.date);
+        if(this instanceof TextNote && o instanceof ImageNote)
+            return -1;
+        if(this instanceof ImageNote && o instanceof  TextNote)
+            return 1;
+        return this.title.compareTo(o.title);
     }
 
     @Override
