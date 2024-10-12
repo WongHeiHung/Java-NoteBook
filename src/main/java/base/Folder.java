@@ -66,14 +66,14 @@ public class Folder implements Comparable<Folder>{
                 previousKeywordIsOr = false;
             } else {
                 if (!tempList.isEmpty()) {
-                    groupArray.add(tempList);
+                    groupArray.add(new ArrayList<>(tempList));
                     tempList.clear();
                 }
                 tempList.add(keyword);
             }
         }
 
-        groupArray.add(tempList);
+        groupArray.add(new ArrayList<>(tempList));
 
 
         for (Note note : notes) {
