@@ -1,6 +1,8 @@
 package base;
 
-public class TextNote extends Note{
+import java.io.*;
+
+public class TextNote extends Note implements java.io.Serializable{
 
     private String content;
 
@@ -29,5 +31,39 @@ public class TextNote extends Note{
             }
         }
         return "TextNote:" + getDate().toString() + "\t" + getTitle() + "\t" + contentShort;
+    }
+
+    public TextNote(File f) {
+        super(f.getName());
+        this.content = getTextFromFile(f.getAbsolutePath());
+    }
+
+    private String getTextFromFile(String absolutePath) {
+        String result = "";
+        StringBuilder contentBuilder = new StringBuilder();
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(absolutePath))))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                contentBuilder.append(line).append(System.lineSeparator());
+            }
+            result = contentBuilder.toString();
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + absolutePath);
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + absolutePath);
+        }
+
+        return result;
+    }
+
+    public void exportTextToFile(String pathFolder) {
+        String fileName = this.getTitle().replace(" ", "_") + ".txt";
+        File file = new File(pathFolder, fileName);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            writer.write(this.getContent());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
