@@ -15,6 +15,11 @@ public class Note implements Comparable<Note>, java.io.Serializable{
         counter++;
     }
 
+    public Note (Note note) {
+        this.title = note.title;
+        this.date = note.date;
+    }
+
     public String getTitle() {
         return title;
     }

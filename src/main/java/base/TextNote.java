@@ -1,8 +1,9 @@
 package base;
 
+import javax.swing.Icon;
 import java.io.*;
 
-public class TextNote extends Note implements java.io.Serializable{
+public class TextNote extends Note implements java.io.Serializable, Iconifiable {
 
     private String content;
 
@@ -14,6 +15,12 @@ public class TextNote extends Note implements java.io.Serializable{
     public TextNote(String title, String content) {
         super(title);
         this.content = content;
+        iconify();
+    }
+
+    public TextNote (TextNote note) {
+        super(note);
+        this.content = note.content;
     }
 
     public String getContent() {
@@ -64,6 +71,18 @@ public class TextNote extends Note implements java.io.Serializable{
             writer.write(this.getContent());
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void iconify() {
+        char firstCharacter = content.charAt(0);
+        if ('a' <= firstCharacter && firstCharacter <= 'z') {
+            content = new IconLowerCase(firstCharacter).base + content.substring(1);
+        } else if ('A' <= firstCharacter && firstCharacter <= 'Z') {
+            content = new IconUpperCase(firstCharacter).base + content.substring(1);
+        } else if ('0' <= firstCharacter && firstCharacter <= '9') {
+            content = new IconDigit(firstCharacter).base + content.substring(1);
         }
     }
 }

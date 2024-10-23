@@ -2,7 +2,7 @@ package base;
 
 import java.util.*;
 
-public class Folder implements Comparable<Folder>, java.io.Serializable{
+public class Folder implements Comparable<Folder>, java.io.Serializable, Cloneable{
     private ArrayList<Note> notes;
     private String name;
 
@@ -103,5 +103,25 @@ public class Folder implements Comparable<Folder>, java.io.Serializable{
             }
         }
         return matchedNotes;
+    }
+
+    @Override
+    public Folder clone() {
+        try {
+            Folder clone = (Folder) super.clone();
+            clone.notes = new ArrayList<>(this.notes.size());
+            for (Note note : this.notes) {
+                if (note instanceof TextNote) {
+                    clone.notes.add(new TextNote((TextNote) note));
+                } else if (note instanceof ImageNote) {
+                    clone.notes.add(new ImageNote((ImageNote) note));
+                } else if (note != null) {
+                    clone.notes.add(new Note(note));
+                }
+            }
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }
