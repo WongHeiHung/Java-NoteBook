@@ -15,7 +15,6 @@ public class TextNote extends Note implements java.io.Serializable, Iconifiable 
     public TextNote(String title, String content) {
         super(title);
         this.content = content;
-        iconify();
     }
 
     public TextNote (TextNote note) {
