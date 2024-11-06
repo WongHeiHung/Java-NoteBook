@@ -48,8 +48,7 @@ public class Account {
 		// TODO: Task4 
 		// replace the null with a lambda expression
 		Account maxOne = accounts.stream()
-				.max((a1, a2) -> Integer.compare(a1.balance, a2.balance))
-				.get();
+				.reduce(accounts.get(0), (a, b) -> (a.balance >= b.balance ? a : b));
 
 		return maxOne.id;
 	}
